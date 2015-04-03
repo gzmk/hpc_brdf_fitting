@@ -40,7 +40,7 @@ for i = 1:iter
     bestAlphas = [bestAlphas;XBest1];
     bestfit_1pr = [bestfit_1pr;BestF1];
     sprintf('Fix alphau: %f and fit rho_s and rho_d', XBest1);
-    imname = strcat('/Local/Users/gizem/Documents/Research/GlossBump/Gloss_Level_Sphere_Photos/fit_results/monochromatic/', fitname);
+    imname = strcat('/scratch/gk925/hpc_brdf_fitting/fit_results/multispectral/', fitname);
     save(imname, 'bestRhos','bestAlphas','bestfit_2pr','bestfit_1pr');
 
     

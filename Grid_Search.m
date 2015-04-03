@@ -20,7 +20,7 @@ function [XBest,BestF,Iters]=Grid_Search(N, XLo, XHi, NumDiv, MinDeltaX, Eps_Fx,
 % Iters - number of iterations
 %
 Xcenter = (XHi + XLo) / 2;
-XBest = Xcenter
+XBest = Xcenter;
 DeltaX = (XHi - XLo) ./ NumDiv;
 BestF = feval(myFx, XBest);
 if BestF >= 0
@@ -72,7 +72,7 @@ while (bGoOn > 0) && (abs(BestF - LastBestF) > Eps_Fx) && (Iters <= MaxIter)
 
   XCenter = XBest;
   DeltaX = DeltaX ./ NumDiv;
-  XLo = XCenter - DeltaX .* NumDiv / 2
+  XLo = XCenter - DeltaX .* NumDiv / 2;
   XHi = XCenter + DeltaX .* NumDiv / 2;
   X = XLo; % set initial X
 
@@ -84,3 +84,4 @@ while (bGoOn > 0) && (abs(BestF - LastBestF) > Eps_Fx) && (Iters <= MaxIter)
   end
 
 end % while bGoOn > 0 && () && ()
+return;

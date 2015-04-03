@@ -45,25 +45,25 @@ function costIm = renderIm_1params(var)
 fixed1 = getGlobalros;
 fixed2 = getGlobalrod;
 sprintf('Fixed rho_s: %f fixed rho_d: %f', fixed1, fixed2)
-ro_s = fixed1/(fixed1+fixed2);
-ro_d = fixed2/(fixed1+fixed2);
-% alphau = var(3);
-alphau = var(1);
-light = (fixed1+fixed2);
+% ro_s = fixed1/(fixed1+fixed2);
+% ro_d = fixed2/(fixed1+fixed2);
+% % alphau = var(3);
+% alphau = var(1);
+% light = (fixed1+fixed2);
 
 % THIS IS FOR MULTISPECTRAL RENDERING
-% ro_s = ['300:',num2str(var(1)/(var(1)+var(2))),' 800:',num2str(var(1)/(var(1)+var(2)))];
-% ro_d = ['300:', num2str(var(2)/(var(1)+var(2))), ' 800:', num2str(var(2)/(var(1)+var(2)))];
-% alphau = var(3); % alphau and alphav should always be the same value for isotropic brdf
-% light = ['300:', num2str(var(1)+var(2)), ' 800:',num2str(var(1)+var(2))];
+ro_s = ['300:',num2str(fixed1/(fixed1+fixed2)),' 800:',num2str(fixed1/(fixed1+fixed2))];
+ro_d = ['300:', num2str(fixed2/(fixed1+fixed2)), ' 800:', num2str(fixed2/(fixed1+fixed2))];
+alphau = var(1); % alphau and alphav should always be the same value for isotropic brdf
+light = ['300:', num2str(fixed1+fixed2), ' 800:',num2str(var(1)+var(2))];
 mycell = {ro_s, ro_d, alphau,light};
 
 T = cell2table(mycell, 'VariableNames', {'ro_s' 'ro_d' 'alphau' 'light'});
-writetable(T,'/Local/Users/gizem/Documents/Research/GlossBump/Gloss_Level_Sphere_Photos/sphere_3params_Conditions.txt','Delimiter','\t')
+writetable(T,'/scratch/gk925/hpc_brdf_fitting/sphere_3params_Conditions.txt','Delimiter','\t')
 %% Rendering bit
 
 % Set preferences
-setpref('RenderToolbox3', 'workingFolder', '/Local/Users/gizem/Documents/Research/GlossBump/Gloss_Level_Sphere_Photos');
+setpref('RenderToolbox3', 'workingFolder', '/scratch/gk925/hpc_brdf_fitting');
 
 % use this scene and condition file. 
 parentSceneFile = 'test_sphere.dae';
@@ -107,7 +107,7 @@ montageFile = [montageName '.png'];
     MakeMontage(radianceDataFiles, montageFile, toneMapFactor, isScale, hints);
 
 % load the monochromatic image and display it
-imPath = ['/Local/Users/gizem/Documents/Research/GlossBump/Gloss_Level_Sphere_Photos/', hints.recipeName, '/renderings/Mitsuba/test_sphere-001.mat']
+imPath = ['/scratch/gk925/hpc_brdf_fitting/', hints.recipeName, '/renderings/Mitsuba/test_sphere-001.mat']
 load(imPath, 'multispectralImage');
 im2 = multispectralImage;
 % figure;imshow(im2(:,:,1))
@@ -122,7 +122,7 @@ im2 = multispectralImage;
 mask = zeros(1005,668);
 mask(382:574,256:444)=1;
 
-load('registered_imgs/registered40.mat') % make this a variable
+load('registered40.mat') % make this a variable
 photo = renderRegisteredAdjusted;
 masked_photo = mask.*photo;
 
