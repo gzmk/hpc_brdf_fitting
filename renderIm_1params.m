@@ -55,7 +55,7 @@ sprintf('Fixed rho_s: %f fixed rho_d: %f', fixed1, fixed2)
 ro_s = ['300:',num2str(fixed1/(fixed1+fixed2)),' 800:',num2str(fixed1/(fixed1+fixed2))];
 ro_d = ['300:', num2str(fixed2/(fixed1+fixed2)), ' 800:', num2str(fixed2/(fixed1+fixed2))];
 alphau = var(1); % alphau and alphav should always be the same value for isotropic brdf
-light = ['300:', num2str(fixed1+fixed2), ' 800:',num2str(var(1)+var(2))];
+light = ['300:', num2str(fixed1+fixed2), ' 800:',num2str(fixed1+fixed2)];
 mycell = {ro_s, ro_d, alphau,light};
 
 T = cell2table(mycell, 'VariableNames', {'ro_s' 'ro_d' 'alphau' 'light'});
