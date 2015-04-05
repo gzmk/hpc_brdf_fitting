@@ -129,8 +129,8 @@ masked_photo = mask.*photo;
 % imblack2 = double(imblack)/65535;
 % image1 = photo-imblack2;
 
-% renderedIm = im2(:,:,1); %for multispectral rendering
-renderedIm = im2;
+renderedIm = im2(:,:,1); %for multispectral rendering
+% renderedIm = im2;
 
 
 diff = masked_photo-renderedIm;
