@@ -4,7 +4,8 @@
 #PBS -V
 #PBS -N fitting_test
 #PBS -l nodes=1:ppn=4,mem=2GB,walltime=04:00:00
-iter = ${5}
+#PBS -t 5
+iter = ${PBS_ARRAYID}
 
 module purge
 module load centos/bin
