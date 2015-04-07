@@ -5,7 +5,6 @@
 #PBS -V
 #PBS -N fitting_test
 #PBS -l nodes=1:ppn=1,mem=4GB,walltime=06:00:00
-iter=5
 
 module purge
 module load centos/bin
@@ -13,6 +12,6 @@ module load matlab/2014a
 
 cd /scratch/gk925/hpc_brdf_fitting
 
-xvfb-run --server-args="-screen 0 1024x768x24" matlab -nodisplay -r "gk_hpc_conf; loop_fitbrdf($iter); exit;" > output.log 2>&1
+xvfb-run --server-args="-screen 0 1024x768x24" matlab -nodisplay -r "gk_hpc_conf; loop_fitbrdf(5); exit;" > output.log 2>&1
 
 exit
