@@ -33,16 +33,28 @@ for i = 1:iter
     setGlobalrod(XBest2(2))
     bestRhos = [bestRhos;XBest2];
     bestfit_2pr = [bestfit_2pr;BestF2];
+    delta1 = bestRhos(iter,1)*0.1;
+    delta2 = bestRhos(iter,2)*0.1;
+    converge1 = abs(bestRhos(iter,1)-bestRhos(iter-1,1));
+    converge2 = abs(bestRhos(iter,2)-bestRhos(iter-1,2));
+    
     sprintf('Fix rho_s: %f and rho_d: %f and fit alpha',XBest2(1),XBest2(2));
     [XBest1,BestF1,Iters1] = Grid_Search(1, LB_1, UB_1, NumDiv_1, MinDeltaX_1, 1e-7, 1000, 'renderIm_1params');
     sprintf('This is best alpha: %f',XBest1);
     setGlobalalpha(XBest1(1))
     bestAlphas = [bestAlphas;XBest1];
     bestfit_1pr = [bestfit_1pr;BestF1];
+    delta3 = bestAlphas(iter,1)*0.1;
+    converge3 = abs(bestAlphas(iter,1)-bestAlphas(iter-1,1));
+    
     sprintf('Fix alphau: %f and fit rho_s and rho_d', XBest1);
     imname = strcat('/scratch/gk925/hpc_brdf_fitting/fit_results/multispectral/', fitname);
     save(imname, 'bestRhos','bestAlphas','bestfit_2pr','bestfit_1pr');
-
+    
+    if iter>1 && (converge1<=delta1) && (converge2<=delta2) && (converge3<=delta3)
+        sprintf('Parameters converged! Exiting the loop')
+        break
+    end
     
 end
 
