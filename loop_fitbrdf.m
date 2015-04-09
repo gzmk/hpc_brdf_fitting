@@ -23,7 +23,8 @@ bestAlphas = [];
 bestfit_2pr = [];
 bestfit_1pr = [];
 
-fitname = '40percent_try1.mat'
+fitname1 = '40percent_2param.mat';
+fitname2 = '40percent_1param.mat';
 for i = 1:iter
     
     [XBest2,BestF2,Iters2] = Grid_Search(2, LB_2', UB_2', NumDiv_2, MinDeltaX_2, 1e-7, 1000, 'renderIm_2params');
@@ -38,6 +39,9 @@ for i = 1:iter
     converge1 = abs(bestRhos(iter,1)-bestRhos(iter-1,1));
     converge2 = abs(bestRhos(iter,2)-bestRhos(iter-1,2));
     
+    imname = strcat('/scratch/gk925/hpc_brdf_fitting/fit_results/multispectral/', fitname1);
+    save(imname, 'bestRhos','bestfit_2pr');
+    
     sprintf('Fix rho_s: %f and rho_d: %f and fit alpha',XBest2(1),XBest2(2));
     [XBest1,BestF1,Iters1] = Grid_Search(1, LB_1, UB_1, NumDiv_1, MinDeltaX_1, 1e-7, 1000, 'renderIm_1params');
     sprintf('This is best alpha: %f',XBest1);
@@ -48,8 +52,8 @@ for i = 1:iter
     converge3 = abs(bestAlphas(iter,1)-bestAlphas(iter-1,1));
     
     sprintf('Fix alphau: %f and fit rho_s and rho_d', XBest1);
-    imname = strcat('/scratch/gk925/hpc_brdf_fitting/fit_results/multispectral/', fitname);
-    save(imname, 'bestRhos','bestAlphas','bestfit_2pr','bestfit_1pr');
+    imname = strcat('/scratch/gk925/hpc_brdf_fitting/fit_results/multispectral/', fitname2);
+    save(imname, 'bestAlphas','bestfit_1pr');
     
     if iter>1 && (converge1<=delta1) && (converge2<=delta2) && (converge3<=delta3)
         sprintf('Parameters converged! Exiting the loop')
